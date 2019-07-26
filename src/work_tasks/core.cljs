@@ -11,10 +11,10 @@
 (api/get-data-by-type "tasks")
 
 (defn core []
-  (print @app-state)
+  (print (:active-task @app-state))
   [:div.Main
     [home/render (:home (:active-page @app-state)) (:tasks @app-state)]
-    [task/render (:task (:active-page @app-state))]])
+    [task/render (:task (:active-page @app-state)) (:active-task @app-state)]])
 
 
 (reagent/render-component [core]

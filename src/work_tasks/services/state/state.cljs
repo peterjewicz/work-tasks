@@ -2,6 +2,7 @@
     (:require [reagent.core :as reagent :refer [atom]]))
 
 (defonce app-state (atom {:text "Hello world!"
+                          :active-task nil ;holds a ref to the active task for editing purposes
                           :active-page {:home "active"
                                         :task false
                                         :calendar false

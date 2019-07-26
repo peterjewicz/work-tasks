@@ -20,9 +20,8 @@
   (.then (get-tasks)
     (fn [tasks]
       (.then (.setItem (.-localforage js/window) "tasks" (clj->js (conj tasks (apiHelpers/add-metadata @task)))
-        (fn [value]
-          ;handle state update
-        ))))))
+        (fn [updatedTasks]
+          (handle-state-change {:type "add-task" :value (js->clj updatedTasks :keywordize-keys true)})))))))
 
 (defn edit-task [task]
   "edits an existing task")
