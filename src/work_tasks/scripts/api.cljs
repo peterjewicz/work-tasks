@@ -3,9 +3,9 @@
             [work-tasks.scripts.apiHelpers :as apiHelpers]))
 
 ;GENERAL API FUNCTIONS
-(defn get-data-by-type [type]
-  "Quries an entity from out localstorage and adds it to local store"
-  (.then (.getItem (.-localforage js/window) type) (fn [tasks]
+(defn update-tasks-in-store []
+  "General function call after updateing the store to trigger a re-render"
+  (.then (.getItem (.-localforage js/window) "tasks") (fn [tasks]
                                                     (handle-state-change {:type "add-task" :value (js->clj tasks :keywordize-keys true)}))))
 
 ;TASKS API CONCERNS
@@ -13,18 +13,27 @@
   "Gets all the current tasks"
   (.then (.getItem (.-localforage js/window) "tasks")
     (fn [tasks]
-      tasks)))
+      (js->clj tasks))))
 
-(defn save-new-task [task]
+(defn handle-save-new-task [task]
   "Saves a new task"
   (.then (get-tasks)
     (fn [tasks]
-      (.then (.setItem (.-localforage js/window) "tasks" (clj->js (conj tasks (apiHelpers/add-metadata @task)))
-        (fn [updatedTasks]
-          (handle-state-change {:type "add-task" :value (js->clj updatedTasks :keywordize-keys true)})))))))
+      (.then (.setItem (.-localforage js/window) "tasks" (clj->js (conj tasks (apiHelpers/add-metadata task)))
+        (fn [tasks]
+          (update-tasks-in-store)))))))
 
-(defn edit-task [task]
-  "edits an existing task")
+(defn handle-save-edit-task [task]
+  "edits an existing task"
+  (js/alert "This is where we'd handle a task edit"))
+
+(defmulti save-task (fn [task] (boolean (:id task))))
+  (defmethod save-task true
+    [task]
+    (handle-save-edit-task task))
+  (defmethod save-task false
+    [task]
+    (handle-save-new-task task))
 
 (defn delete-task [taskId]
   "deletes an existing task")

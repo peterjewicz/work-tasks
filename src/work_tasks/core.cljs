@@ -8,10 +8,10 @@
 
 (enable-console-print!)
 
-(api/get-data-by-type "tasks")
+(api/update-tasks-in-store)
 
 (defn core []
-  (print (:active-task @app-state))
+  ; (js/console.log (:active-task @app-state))
   [:div.Main
     [home/render (:home (:active-page @app-state)) (:tasks @app-state)]
     [task/render (:task (:active-page @app-state)) (:active-task @app-state)]])
