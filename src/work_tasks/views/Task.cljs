@@ -1,9 +1,11 @@
 (ns work-tasks.views.task
   (:require [reagent.core :as reagent :refer [atom]]
             [work-tasks.scripts.api :as api]
+            [work-tasks.components.datepicker :as datepicker]
             [work-tasks.services.state.dispatcher :refer [handle-state-change]]))
 
 ; TODO update the dispaly on a succesful new save but not on edit!
+; Date won't properly populat on edits
 
 (defn leave-task-page [taskDetails taskKeys]
   "We touch our state here so it doesn't carry over to new"
@@ -11,9 +13,14 @@
   (reset! taskKeys [(inc (first @taskKeys)) (inc (second @taskKeys)) (inc (nth @taskKeys 2))])
   (handle-state-change {:type "update-active-view" :value "home"}))
 
+(defn merge-dates-on-save [taskDetails startTime]
+  "Merges our date atom onto the main details before saving"
+  (conj taskDetails {:due startTime}))
+
 (defn render [active activeTask]
-  (let [taskDetails (atom {:title "" :details "" :id false})
-        taskKeys (atom [1, 2, 3])] ; we use this to force re-render on the input
+  (let [taskDetails (atom {:title "" :details "" :id false })
+        taskKeys (atom [1, 2, 3])
+        startTime (atom "")] ; we use this to force re-render on the input
     (fn [active activeTask]
       (if activeTask
         (do
@@ -29,4 +36,5 @@
         [:input {:type "text" :key (first @taskKeys) :defaultValue (:title @taskDetails) :name "title" :on-change #(swap! taskDetails conj {:title (-> % .-target .-value)})}]
         [:textarea {:placeholder "Task Details" :key (second @taskKeys) :defaultValue (:details @taskDetails) :name "details" :on-change #(swap! taskDetails conj {:details (-> % .-target .-value)})}]
         [:h2 "TODO Date Stuff"]
-        [:button {:on-click #(api/save-task @taskDetails)} "Save"]]])))
+        [datepicker/datepicker startTime]
+        [:button {:on-click #(api/save-task (merge-dates-on-save @taskDetails @startTime))} "Save"]]])))

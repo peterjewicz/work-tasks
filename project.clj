@@ -9,6 +9,7 @@
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [org.clojure/clojurescript "1.10.520"]
                  [org.clojure/core.async  "0.4.500"]
+                 [fancy_alert "0.0.2"]
                  [reagent "0.8.1"]]
 
   :plugins [[lein-figwheel "0.5.19"]
@@ -31,6 +32,8 @@
                            :open-urls ["http://localhost:3449/index.html"]}
 
                 :compiler {:main work-tasks.core
+                           :npm-deps {:localforage "*" :moment "*"}
+                           :install-deps true
                            :asset-path "js/compiled/out"
                            :output-to "resources/public/js/compiled/work_tasks.js"
                            :output-dir "resources/public/js/compiled/out"
@@ -45,6 +48,8 @@
                 :source-paths ["src"]
                 :compiler {:output-to "resources/public/js/compiled/work_tasks.js"
                            :main work-tasks.core
+                           :npm-deps {:localforage "*" :moment "*"}
+                           :install-deps true
                            :optimizations :advanced
                            :pretty-print false}}]}
 
