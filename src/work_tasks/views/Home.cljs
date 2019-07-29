@@ -1,5 +1,6 @@
 (ns work-tasks.views.home
-  (:require [work-tasks.services.state.dispatcher :refer [handle-state-change]]))
+  (:require [work-tasks.services.state.dispatcher :refer [handle-state-change]]
+            [work-tasks.scripts.taskHelpers :refer [filter-completed-tasks]]))
 
 (defn dispatch-for-edit-view [task]
   "Handles calling the two functions to setup the edited view"
@@ -24,8 +25,11 @@
 
 (defn render [active tasks]
   [:div.Page.Home {:class active}
-    (if tasks
-      (generate-task-display tasks)
-      (generate-no-tasks-display))
+    [:div.Home.header
+      [:p {:on-click #(handle-state-change {:type "update-active-view" :value "settings"})} "settings"]]
+    (let [notCompletedTasks (filter-completed-tasks tasks)]
+      (if (> (count notCompletedTasks) 0)
+        (generate-task-display notCompletedTasks)
+        (generate-no-tasks-display)))
     [:div.addTaskButton {:on-click #(handle-state-change {:type "update-active-view" :value "task"})}
       [:p "+"]]])

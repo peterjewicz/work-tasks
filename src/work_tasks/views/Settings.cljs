@@ -3,5 +3,5 @@
 
 (defn render [active]
   [:div.Settings {:class active}
-    [:p {:on-click #(handle-state-change {:type "update-active-view" :value ""})}"Go Back"]
+    [:p {:on-click #(handle-state-change {:type "update-active-view" :value "home"})}"Go Back"]
     [:h2 "I'm a page that takes my state"]])

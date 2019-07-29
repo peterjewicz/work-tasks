@@ -39,4 +39,6 @@
         [:textarea {:placeholder "Task Details" :key (second @taskKeys) :defaultValue (:details @taskDetails) :name "details" :on-change #(swap! taskDetails conj {:details (-> % .-target .-value)})}]
         [:h2 "TODO Date Stuff"]
         [datepicker/datepicker startTime]
-        [:button {:on-click #(api/save-task (merge-dates-on-save @taskDetails @startTime))} "Save"]]])))
+        [:button {:on-click #(api/save-task (merge-dates-on-save @taskDetails @startTime))} "Save"]
+        (if (:id @taskDetails)
+          [:button {:on-click #(api/save-task  (conj (merge-dates-on-save @taskDetails @startTime) {:completed? true :completedOn (js/Date.)}))} "Complete"])]])))
