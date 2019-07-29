@@ -17,6 +17,8 @@
   "Merges our date atom onto the main details before saving"
   (conj taskDetails {:due startTime}))
 
+; NOTE
+; If during render `:id` is set we know this is an existing task in edit mode
 (defn render [active activeTask]
   (let [taskDetails (atom {:title "" :details "" :id false })
         taskKeys (atom [1, 2, 3])

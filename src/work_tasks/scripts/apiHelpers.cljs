@@ -9,14 +9,16 @@
 
 (defn generate-unique-id []
   "generates a unique Id"
-  4)
+  (str (random-uuid)))
 
 (defn add-metadata [task]
   "Adds the extra metadata we want to track on each item"
-  (conj task {:id (generate-unique-id) :created (js/Date.)}))
+  (conj task {:id (generate-unique-id) :completed? false :created (js/Date.)}))
 
 (defn get-completed-tasks [taskVector]
-  "Takes all tasks and returns the completed ones")
+  "Takes all tasks and returns the completed ones"
+  (filter taskVector (fn [task] (boolean (:completed? task)))))
 
 (defn filter-completed-tasks [taskVector]
-  "Takes all tasks and returns ones NOT completed")
+  "Takes all tasks and returns ones NOT completed"
+  (filter taskVector (fn [task] (not (boolean (:completed? task))))))

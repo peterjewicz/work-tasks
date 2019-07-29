@@ -13,7 +13,7 @@
   "Gets all the current tasks"
   (.then (.getItem (.-localforage js/window) "tasks")
     (fn [tasks]
-      (js->clj tasks))))
+      (js->clj tasks :keywordize-keys true))))
 
 (defn handle-save-new-task [task]
   "Saves a new task"
@@ -21,11 +21,19 @@
     (fn [tasks]
       (.then (.setItem (.-localforage js/window) "tasks" (clj->js (conj tasks (apiHelpers/add-metadata task)))
         (fn [tasks]
-          (update-tasks-in-store)))))))
+          (update-tasks-in-store))))))) ; TODO add alert
 
 (defn handle-save-edit-task [task]
   "edits an existing task"
-  (js/alert "This is where we'd handle a task edit"))
+  (.then (get-tasks)
+    (fn [tasks]
+      (.then (.setItem (.-localforage js/window) "tasks" (clj->js
+                        (map (fn [savedTask] ; updates only the task taht we passed in
+                          (if (= (:id savedTask) (:id task))
+                            task
+                            savedTask)) tasks))
+        (fn [tasks]
+          (update-tasks-in-store))))))) ;TODO add alert
 
 (defmulti save-task (fn [task] (boolean (:id task))))
   (defmethod save-task true
