@@ -5,6 +5,7 @@
               [work-tasks.views.settings :as settings]
               [work-tasks.services.state.global :refer [app-state]]
               [work-tasks.scripts.api :as api]
+              [work-tasks.scripts.notifications :as notification]
               [work-tasks.services.state.dispatcher :refer [handle-state-change]]))
 
 (enable-console-print!)
@@ -12,8 +13,9 @@
 (api/update-tasks-in-store)
 
 (defn core []
-  ; (js/console.log (:active-task @app-state))
+  ; (print (:notification @app-state))
   [:div.Main
+    [notification/Notification (:notification @app-state)]
     [home/render (:home (:active-page @app-state)) (:tasks @app-state)]
     [task/render (:task (:active-page @app-state)) (:active-task @app-state)]
     [settings/render (:settings (:active-page @app-state))]])

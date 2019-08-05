@@ -84,3 +84,20 @@ Blue: #36a0cd */
 .Task.Page {
   padding: 10px;
 }
+
+
+
+/* NOTIFICATION COMPONENT STYLES */
+.Notification {
+  position: fixed;
+  top: 500px !important;
+  left: 0;
+  z-index: 20;
+  top: 10px;
+  background: white;
+  height: 100px;
+  width: 100%;
+  color: black;
+  text-align: center;
+  border: 1px solid black;
+}

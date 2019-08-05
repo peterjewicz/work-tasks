@@ -6,7 +6,8 @@
                           :active-page {:home "active"
                                         :task false
                                         :calendar false
-                                        :settings false}}))
+                                        :settings false}
+                          :notification {:message "" :background "red" :display 0}}))
 
 ; TODO move these two scrolling functions into a state helper file
 ; Don't want them cluttering up this namespace

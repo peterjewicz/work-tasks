@@ -9,6 +9,7 @@
 
 (defn leave-task-page [taskDetails taskKeys]
   "We touch our state here so it doesn't carry over to new"
+  (handle-state-change {:type "update-notification-state" :value "home"}) ;; TODO REMOVE THIS IS FOR TESTING ONLY
   (reset! taskDetails {:title "" :details "" :id false})
   (reset! taskKeys [(inc (first @taskKeys)) (inc (second @taskKeys)) (inc (nth @taskKeys 2))])
   (handle-state-change {:type "update-active-view" :value "home"}))

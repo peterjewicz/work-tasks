@@ -7,7 +7,7 @@
   ; (handle-state-change {:type "update-active-view" :value "task"})
   (handle-state-change {:type "update-active-task" :value task})
   (handle-state-change {:type "update-active-view" :value "task"}))
-
+; TODO we want to create simple slide down each tme to create the alert
 (defn generate-task-display [tasks]
   "Generates our html for displaying home page tasks"
   [:div.HomeTaskWrapper
@@ -16,7 +16,7 @@
       [:div.HomeTask {:key (:id task) :on-click #(dispatch-for-edit-view task)}
         [:div
           [:h2 (:title task)]
-          [:p "Due: 11/2/2019 - 11:34PM"]]
+          [:p (:due task)]]
         [:p (:details task)]])])
 
 (defn generate-no-tasks-display []
