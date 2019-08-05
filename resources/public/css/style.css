@@ -98,8 +98,10 @@ Blue: #36a0cd */
   width: 100%;
   color: white;
   text-align: center;
-  border: 1px solid black;
+  border: 1px solid white;
   transition: all .5s;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 #Notification.active {

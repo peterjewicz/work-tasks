@@ -1,5 +1,6 @@
 (ns work-tasks.scripts.notifications
-  (:require [reagent.core :as reagent :refer [atom]]))
+  (:require [reagent.core :as reagent :refer [atom]]
+            [work-tasks.services.state.dispatcher :refer [handle-state-change]]))
 ; This handles notifications to the browser
 
 ;TODO
@@ -20,9 +21,13 @@
     (.remove (.-classList notification) toRemove)
     (.add (.-classList notification) toAdd)))
 
+(defn handle-close-notification []
+  (update-notification "active" "hidden")
+  (handle-state-change {:type "update-notification-state" :value {:message "" :background "" :display false}}))
+
 (defn setup-timeout []
   "sets up the time out to close the notification"
-  (js/setTimeout #(update-notification "active" "hiden") 1000))
+  (js/setTimeout #(handle-close-notification) 1250))
 
 (defn show-notification []
   "handles the showing of the notification"
@@ -39,9 +44,8 @@
 
   (let [toUpdate (atom (:display message-details))]
     (fn [message-details]
-  ; (setup-timeout)
-      (print message-details)
-      (if (not (= @toUpdate (:display message-details)))
+      (print (:display message-details))
+      (if (and  (not (= @toUpdate (:display message-details))) (not (= false (:display message-details)))) ; if our @toUpdate is different we know that we can show a notification
         (handle-show-notification))
       [:div#Notification.Notification  {:class "hidden" :style {:background-color (:background message-details)}}
         [:div.NotificationInner

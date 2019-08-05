@@ -21,8 +21,8 @@
     (fn [tasks]
       (.then (.setItem (.-localforage js/window) "tasks" (clj->js (conj tasks (apiHelpers/add-metadata task)))
         (fn [tasks]
-          (update-tasks-in-store))))))) ; TODO add alert
-
+          (update-tasks-in-store)
+          (handle-state-change {:type "update-notification-state" :value {:message "Task Saved!" :background "#1f960f" :display true}})))))))
 (defn handle-save-edit-task [task]
   "edits an existing task"
   (.then (get-tasks)
@@ -33,8 +33,8 @@
                             task
                             savedTask)) tasks))
         (fn [tasks]
-          (update-tasks-in-store))))))) ;TODO add alert
-
+          (update-tasks-in-store)
+          (handle-state-change {:type "update-notification-state" :value {:message "Task Updated!" :background "#1f960f" :display true}})))))))
 (defmulti save-task (fn [task] (boolean (:id task))))
   (defmethod save-task true
     [task]
