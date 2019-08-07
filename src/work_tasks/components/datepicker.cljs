@@ -93,7 +93,8 @@
 (defn datepicker [store]
   "responsible for rending the datepicker to the screen"
   (let [vals (:end @store)
-        date (atom {:month "January" :date 1 :year 2019})
+        currentDate (moment)
+        date (atom {:month (.format currentDate "MMMM") :date (.format currentDate "D") :year (.format currentDate "YYYY")}) ; TODO need to automatically st this to todays date
         randomId (rand-int 100000)] ;TODO we might want to roll all this into a single atom
     (fn []
       [:div

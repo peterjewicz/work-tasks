@@ -3,6 +3,7 @@
               [work-tasks.views.home :as home]
               [work-tasks.views.task :as task]
               [work-tasks.views.settings :as settings]
+              [work-tasks.views.calendar :as calendar]
               [work-tasks.services.state.global :refer [app-state]]
               [work-tasks.scripts.api :as api]
               [work-tasks.scripts.notifications :as notification]
@@ -18,7 +19,8 @@
     [notification/Notification (:notification @app-state)]
     [home/render (:home (:active-page @app-state)) (:tasks @app-state)]
     [task/render (:task (:active-page @app-state)) (:active-task @app-state)]
-    [settings/render (:settings (:active-page @app-state))]])
+    [settings/render (:settings (:active-page @app-state))]
+    [calendar/render (:calendar (:active-page @app-state))]])
 
 
 (reagent/render-component [core]

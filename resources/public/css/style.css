@@ -1,10 +1,24 @@
 /* some style */
-/* TODO Need to make this SASS */
+@font-face {
+  font-family: Blinker;
+	src: url('Blinker-Regular.ttf');
+}
+
+@font-face {
+  font-family: BlinkerBold;
+	src: url('Blinker-SemiBold.ttf');
+}
+
 body, html {
   margin: 0;
   padding: 0;
   font-size: 16px;
   color: #424341;
+  font-family: Blinker;
+}
+
+h1,h2,h3,h4,h5{
+  font-family: BlinkerBold;
 }
 
 body.hide-scroll {
@@ -14,6 +28,51 @@ body.hide-scroll {
 
 body.hide-scroll .Main {
   /* opacity: 0; WE need to move this to the warpper on the home page content itself not hte overall wrap */
+}
+
+button {
+  font-size: 1rem;
+  text-transform: uppercase;
+  background: none;
+  padding: 8px 24px;
+  border-radius: 16px;
+  transition: all .25s;
+}
+
+button.primary {
+  background: #36a0cd;
+  border: 1px solid #36a0cd;
+  color: white;
+}
+
+button.primary:active{
+  background: #3191b9;
+  border: 1px solid #3191b9;
+}
+
+button.success {
+  background: transparent;
+  border: 1px solid #2eb831;
+  color: #858585;
+}
+
+button.success:active{
+  background: #2eb831;
+  color: white;
+  border: 1px solid #2aa82c;
+}
+
+button.warning {
+  background: transparent;
+  border: 1px solid #ea2c2c;
+  color: #858585;
+  margin-top: 16px !important; /* We only use this button once so just put the margin on it */
+}
+
+button.warning:active{
+  background: #ea2c2c;
+  color: white;
+  border: 1px solid #ea2c2c;
 }
 
 /* COLORS
@@ -41,6 +100,11 @@ Blue: #36a0cd */
 /* HOME PAGE STYLES */
 .Home {
   padding: 10px;
+}
+
+.Home.header {
+  display: flex;
+  justify-content: space-between;
 }
 
 .addTaskButton {
@@ -85,6 +149,15 @@ Blue: #36a0cd */
   padding: 10px;
 }
 
+.completeButtonWrapper {
+  margin-top: 50px;
+}
+
+.completeButtonWrapper button {
+  margin: 0 auto;
+  display: block;
+}
+
 
 
 /* NOTIFICATION COMPONENT STYLES */
@@ -106,4 +179,33 @@ Blue: #36a0cd */
 
 #Notification.active {
   top: 0px;
+}
+
+
+/* INPUT STYLES */
+
+.inputWrapper {
+  margin: 24px auto;
+  width: 90%;
+  max-width: 260px;
+}
+
+.inputWrapper h4 {
+  margin-bottom: 8px;
+}
+
+input, textarea {
+  border: none;
+  padding: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid #36a0cd;
+}
+
+input {
+  min-height: 50px;
+}
+
+textarea {
+  min-height: 75px;
 }

@@ -4,10 +4,9 @@
 
 (defn dispatch-for-edit-view [task]
   "Handles calling the two functions to setup the edited view"
-  ; (handle-state-change {:type "update-active-view" :value "task"})
   (handle-state-change {:type "update-active-task" :value task})
   (handle-state-change {:type "update-active-view" :value "task"}))
-; TODO we want to create simple slide down each tme to create the alert
+
 (defn generate-task-display [tasks]
   "Generates our html for displaying home page tasks"
   [:div.HomeTaskWrapper
@@ -26,7 +25,8 @@
 (defn render [active tasks]
   [:div.Page.Home {:class active}
     [:div.Home.header
-      [:p {:on-click #(handle-state-change {:type "update-active-view" :value "settings"})} "settings"]]
+      [:p {:on-click #(handle-state-change {:type "update-active-view" :value "settings"})} "settings"]
+      [:p {:on-click #(handle-state-change {:type "update-active-view" :value "calendar"})} "Calendar"]]
     (let [notCompletedTasks (filter-completed-tasks tasks)]
       (if (> (count notCompletedTasks) 0)
         (generate-task-display notCompletedTasks)

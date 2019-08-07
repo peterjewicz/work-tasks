@@ -2,7 +2,8 @@
   (:require [reagent.core :as reagent :refer [atom]]
             [work-tasks.scripts.api :as api]
             [work-tasks.components.datepicker :as datepicker]
-            [work-tasks.services.state.dispatcher :refer [handle-state-change]]))
+            [work-tasks.services.state.dispatcher :refer [handle-state-change]]
+            ["moment" :as moment]))
 
 ; TODO update the dispaly on a succesful new save but not on edit!
 ; Date won't properly populat on edits
@@ -22,7 +23,7 @@
 (defn render [active activeTask]
   (let [taskDetails (atom {:title "" :details "" :id false })
         taskKeys (atom [1, 2, 3])
-        startTime (atom "")] ; we use this to force re-render on the input
+        startTime (atom (.format (moment (js/Date. (.setHours (js/Date.) 0 0 0 0))) "MM/DD/YYYY"))] ; we use this to force re-render on the input
     (fn [active activeTask]
       (if activeTask
         (do
@@ -34,11 +35,17 @@
         [:div.Task.header
           [:p {:on-click #(leave-task-page taskDetails taskKeys)} "Go Back"]]
       [:div.Task.body
-        ; [:input {:type "hidden" :key (nth @taskKeys 2) :value (:id @taskDetails)}]
-        [:input {:type "text" :key (first @taskKeys) :defaultValue (:title @taskDetails) :name "title" :on-change #(swap! taskDetails conj {:title (-> % .-target .-value)})}]
-        [:textarea {:placeholder "Task Details" :key (second @taskKeys) :defaultValue (:details @taskDetails) :name "details" :on-change #(swap! taskDetails conj {:details (-> % .-target .-value)})}]
-        [:h2 "TODO Date Stuff"]
-        [datepicker/datepicker startTime]
-        [:button {:on-click #(api/save-task (merge-dates-on-save @taskDetails @startTime))} "Save"]
+        [:div.inputWrapper
+          [:h4 "Task Name"]
+          [:input {:type "text" :placeholder "Give your task a name." :key (first @taskKeys) :defaultValue (:title @taskDetails) :name "title" :on-change #(swap! taskDetails conj {:title (-> % .-target .-value)})}]]
+        [:div.inputWrapper
+          [:h4 "Task Details"]
+          [:textarea {:placeholder "Add details to the task." :key (second @taskKeys) :defaultValue (:details @taskDetails) :name "details" :on-change #(swap! taskDetails conj {:details (-> % .-target .-value)})}]]
+        [:div.inputWrapper
+          [:h4 "Due Date"]
+          [datepicker/datepicker startTime]]
+        [:button.primary {:on-click #(api/save-task (merge-dates-on-save @taskDetails @startTime))} "Save"]
         (if (:id @taskDetails)
-          [:button {:on-click #(api/save-task  (conj (merge-dates-on-save @taskDetails @startTime) {:completed? true :completedOn (js/Date.)}))} "Complete"])]])))
+          [:div.completeButtonWrapper
+            [:button.success {:on-click #(api/save-task  (conj (merge-dates-on-save @taskDetails @startTime) {:completed? true :completedOn (js/Date.)}))} "Complete"]
+            [:button.warning {:on-click #(api/delete-task (:id @taskDetails))} "Delete"]])]])))

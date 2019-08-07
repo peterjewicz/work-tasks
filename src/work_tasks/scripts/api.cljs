@@ -22,7 +22,7 @@
       (.then (.setItem (.-localforage js/window) "tasks" (clj->js (conj tasks (apiHelpers/add-metadata task)))
         (fn [tasks]
           (update-tasks-in-store)
-          (handle-state-change {:type "update-notification-state" :value {:message "Task Saved!" :background "#1f960f" :display true}})))))))
+          (handle-state-change {:type "update-notification-state" :value {:message "Task Saved!" :background "#2eb831" :display true}})))))))
 (defn handle-save-edit-task [task]
   "edits an existing task"
   (.then (get-tasks)
@@ -34,7 +34,7 @@
                             savedTask)) tasks))
         (fn [tasks]
           (update-tasks-in-store)
-          (handle-state-change {:type "update-notification-state" :value {:message "Task Updated!" :background "#1f960f" :display true}})))))))
+          (handle-state-change {:type "update-notification-state" :value {:message "Task Updated!" :background "#2eb831" :display true}})))))))
 (defmulti save-task (fn [task] (boolean (:id task))))
   (defmethod save-task true
     [task]
@@ -44,7 +44,14 @@
     (handle-save-new-task task))
 
 (defn delete-task [taskId]
-  "deletes an existing task")
+  "deletes an existing task"
+  (.then (get-tasks)
+    (fn [tasks]
+      (.then (.setItem (.-localforage js/window) "tasks" (clj->js (filter (fn [task] (apiHelpers/filter-deleted-tasks task taskId)) tasks))
+        (fn [tasks]
+          (update-tasks-in-store)
+          (handle-state-change {:type "update-notification-state" :value {:message "Task Deleted!" :background "#ea2c2c" :display true}})
+          (handle-state-change {:type "update-active-view" :value "home"})))))))
 
 
 ;LABEL API CONCERNS

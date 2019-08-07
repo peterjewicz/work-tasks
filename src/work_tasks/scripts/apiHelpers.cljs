@@ -22,3 +22,7 @@
 (defn filter-completed-tasks [taskVector]
   "Takes all tasks and returns ones NOT completed"
   (filter taskVector (fn [task] (not (boolean (:completed? task))))))
+
+(defn filter-deleted-tasks [task taskId]
+  "takes a taskID for delete and reurns all others"
+  (boolean (not= (:id task) taskId)))
