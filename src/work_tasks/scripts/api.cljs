@@ -35,6 +35,7 @@
         (fn [tasks]
           (update-tasks-in-store)
           (handle-state-change {:type "update-notification-state" :value {:message "Task Updated!" :background "#2eb831" :display true}})))))))
+
 (defmulti save-task (fn [task] (boolean (:id task))))
   (defmethod save-task true
     [task]

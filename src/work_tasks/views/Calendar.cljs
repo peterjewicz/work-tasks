@@ -1,7 +1,9 @@
 (ns work-tasks.views.calendar
-  (:require [work-tasks.services.state.dispatcher :refer [handle-state-change]]))
+  (:require [work-tasks.services.state.dispatcher :refer [handle-state-change]]
+            [work-tasks.scripts.calendarHelpers :as calendarHelpers]))
 
-(defn render [active]
+(defn render [active tasks]
+  (print (calendarHelpers/get-tasks-due-today tasks))
   [:div..Page.Calendar {:class active}
     [:div.Calendar.header
       [:p {:on-click #(handle-state-change {:type "update-active-view" :value "home"})}"Go Back"]]
