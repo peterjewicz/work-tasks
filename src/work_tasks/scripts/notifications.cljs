@@ -44,7 +44,6 @@
 
   (let [toUpdate (atom (:display message-details))]
     (fn [message-details]
-      (print (:display message-details))
       (if (and  (not (= @toUpdate (:display message-details))) (not (= false (:display message-details)))) ; if our @toUpdate is different we know that we can show a notification
         (handle-show-notification))
       [:div#Notification.Notification  {:class "hidden" :style {:background-color (:background message-details)}}

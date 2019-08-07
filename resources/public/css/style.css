@@ -209,3 +209,12 @@ input {
 textarea {
   min-height: 75px;
 }
+
+
+/* CALENDAR STUFF */
+
+.Calendar.calendar {
+  padding: 0 5px;
+  display: flex;
+  justify-content: space-between;
+}
