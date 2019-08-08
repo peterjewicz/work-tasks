@@ -14,7 +14,7 @@
 (api/update-tasks-in-store)
 
 (defn core []
-  ; (print (:notification @app-state))
+  ; (print (:previous-page @app-state))
   [:div.Main
     [notification/Notification (:notification @app-state)]
     [home/render (:home (:active-page @app-state)) (:tasks @app-state)]

@@ -14,6 +14,7 @@
    Note: `date` is a moment.js object"
   (.subtract (moment date) n "days"))
 
+;TODO move to tasks
 (defn get-tasks-due-today [tasks]
   "retuns all of the tasks that are due today"
     (let [todaysDate (.format (moment) "MM/DD/YYYY")]

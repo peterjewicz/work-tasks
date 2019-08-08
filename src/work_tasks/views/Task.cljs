@@ -12,7 +12,7 @@
   "We touch our state here so it doesn't carry over to new" ;; TODO REMOVE THIS IS FOR TESTING ONLY
   (reset! taskDetails {:title "" :details "" :id false})
   (reset! taskKeys [(inc (first @taskKeys)) (inc (second @taskKeys)) (inc (nth @taskKeys 2))])
-  (handle-state-change {:type "update-active-view" :value "home"}))
+  (handle-state-change {:type "update-active-view" :value "previous"}))
 
 (defn merge-dates-on-save [taskDetails startTime]
   "Merges our date atom onto the main details before saving"

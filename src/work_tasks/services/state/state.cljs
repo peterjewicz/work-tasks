@@ -5,6 +5,7 @@
 ; But I like to define them all here like this as sort of a documentation of sorts, can see valid values here
 (defonce app-state (atom {:text "Hello world!"
                           :active-task nil ;holds a ref to the active task for editing purposes
+                          :previous-page nil
                           :active-page {:home "active"
                                         :task false
                                         :calendar false
@@ -30,5 +31,10 @@
       (js/setTimeout #(.add (.-classList (.-body js/document)) "hide-scroll") 100))))
 
 (defn update-active-view [app-state payload]
-  (swap! app-state conj {:active-page {(keyword payload) "active"}})
-  (handle-scroll-func payload))
+  (let [actualPrevious (:previous-page @app-state)] ; prevents the swap from mucking things up
+    (swap! app-state conj {:previous-page (name (first (first (:active-page @app-state))))})
+    (if (= payload "previous") ; Tasks page wants to always go back to the last page it was on - account for that
+      (swap! app-state conj {:active-page {(keyword actualPrevious) "active"}})
+      (swap! app-state conj {:active-page {(keyword payload) "active"}}))
+  (handle-scroll-func payload)))
+  ;TODO need to make sure that scroll func properly handles going from task -> cal page -> home

@@ -98,9 +98,6 @@ Blue: #36a0cd */
 
 
 /* HOME PAGE STYLES */
-.Home {
-  padding: 10px;
-}
 
 .Home.header {
   display: flex;
@@ -217,4 +214,21 @@ textarea {
   padding: 0 5px;
   display: flex;
   justify-content: space-between;
+  background: #36a0cd;
+  color: white;
+}
+
+.Calendar.calendar .dateItem {
+  position: relative;
+}
+
+.Calendar.calendar .dateItem.active-date:after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: calc(50% - 4px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
 }
