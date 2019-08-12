@@ -4,6 +4,7 @@
             [work-tasks.scripts.calendarHelpers :as calendarHelpers]
             [work-tasks.scripts.taskHelpers :as taskHelpers]
             [work-tasks.components.task :refer [Task]]
+            [work-tasks.components.Calendar :as Calendar]
             ["moment" :as moment]))
 
 (defn get-class-for-today [date1 date2]
@@ -30,6 +31,7 @@
             (doall (for [date calendarDates]
               [:p.dateItem {:key (.format date "DD") :class (get-class-for-today @currentDate (.format date "MM/DD/YYYY"))
                 :onClick #(update-active-date (.format date "MM/DD/YYYY") currentDate)} (.format date "DD")]))]
+          [Calendar/render tasks currentDate]
           [:div.Calendar.todaysTask
             [:h3 "Today's Tasks"]
               (for [task (taskHelpers/get-tasks-due-on-date @currentDate tasks)]

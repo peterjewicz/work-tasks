@@ -232,3 +232,8 @@ textarea {
   border-radius: 50%;
   background: white;
 }
+
+.Calendar td.active {
+  background: #36a0cd;
+  color: white;
+}
