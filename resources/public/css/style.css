@@ -233,7 +233,43 @@ textarea {
   background: white;
 }
 
+.Calendar td {
+  padding: 5px 0;
+  text-align: center;
+}
+
 .Calendar td.active {
+  /* border: 1px solid #36a0cd; */
+  position: relative;
+  /* color: white; */
+}
+
+.Calendar td.active:after {
+  content: '';
+  position: absolute;
+  bottom: 0px;
+  left: calc(50% - 4px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
   background: #36a0cd;
-  color: white;
+}
+
+.Calendar td.selected {
+  border: 1px solid #36a0cd;
+  border-radius: 70%;
+}
+
+.Calendar .Calendar-Header {
+  display: flex;
+  width: 50%;
+  margin: 0 auto;
+  justify-content: space-between;
+  max-width: 200px;
+}
+
+.Calendar .Calendar-wrapper {
+  width: 85%;
+  margin: 0 auto;
+  max-width: 320px;
 }

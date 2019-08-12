@@ -57,15 +57,26 @@
     (str "0" dayNumber)
     dayNumber))
 
+
+(defn generate-date-classes [date currentDate tasks]
+  "generates the classe ford - active with dates and selected date"
+  (let [hasTasks? (not= 0 (count (taskHelpers/get-tasks-due-on-date date tasks)))
+        isSelected? (= @currentDate date)]
+    (cond
+      (and hasTasks? isSelected?) "active selected"
+      hasTasks? "active"
+      isSelected? "selected"
+      :else "")))
+
 (defn generate-table-row [offsetAmount numberOfDays i currentMonth currentYear tasks currentDate]
   "Generates the table HTML"
   (loop [x 1
          row [:tr]]
         (if (= x 8)
           row
-          (if (not= 0 (count (taskHelpers/get-tasks-due-on-date (str currentMonth "/" (generate-day-count (- (+ i x) offsetAmount)) "/" currentYear) tasks)))
-            (recur (inc x) (conj row [:td.active {:on-click #(reset! currentDate (str currentMonth "/" (generate-day-count (- (+ i x) offsetAmount)) "/" currentYear))} (get-day-display offsetAmount numberOfDays (+ i x))]))
-            (recur (inc x) (conj row [:td (get-day-display offsetAmount numberOfDays (+ i x))]))))))
+          (let [formattedDateString (str currentMonth "/" (generate-day-count (- (+ i x) offsetAmount)) "/" currentYear)]
+          (recur (inc x) (conj row [:td {:class (generate-date-classes formattedDateString currentDate tasks)
+                                         :on-click #(reset! currentDate formattedDateString)} (get-day-display offsetAmount numberOfDays (+ i x))]))))))
 
 (defn generate-table-html [numberOfDays currentMonth currentYear tasks currentDate]
   (let [offsetAmount (.day (.startOf (moment (str currentMonth "/" currentYear) "MM/YYYY") "month"))
@@ -112,7 +123,7 @@
         currentYear (atom (.format (moment) "YYYY"))
         monthDays (atom (get-current-month-days @currentMonth))]
     (fn [tasks]
-      [:div.Calendar
+      [:div.Calendar-widget
         [:div.Calendar-body
           [:div
             [:div.Calendar-Header

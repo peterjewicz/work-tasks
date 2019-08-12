@@ -26,13 +26,8 @@
         [:div.Calendar.header
           [:p {:on-click #(handle-state-change {:type "update-active-view" :value "home"})}"Go Back"]]
         [:div.Calendar.content
-          [:h4 "Your Week"]
-          [:div.Calendar.calendar
-            (doall (for [date calendarDates]
-              [:p.dateItem {:key (.format date "DD") :class (get-class-for-today @currentDate (.format date "MM/DD/YYYY"))
-                :onClick #(update-active-date (.format date "MM/DD/YYYY") currentDate)} (.format date "DD")]))]
           [Calendar/render tasks currentDate]
           [:div.Calendar.todaysTask
-            [:h3 "Today's Tasks"]
+            [:h3 (str "Tasks For " @currentDate)]
               (for [task (taskHelpers/get-tasks-due-on-date @currentDate tasks)]
                 (Task task))]]])))
