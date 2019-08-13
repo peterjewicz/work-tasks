@@ -1,14 +1,18 @@
 (ns work-tasks.scripts.api
   (:require [work-tasks.services.state.dispatcher :refer [handle-state-change]]
             [work-tasks.scripts.apiHelpers :as apiHelpers]
-            [work-tasks.scripts.defaultLabels :refer [labels]]))
+            [work-tasks.scripts.defaultLabels :as defaultLables]))
 
 ;GENERAL API FUNCTIONS
+; TODO can combine these two functions
 (defn update-tasks-in-store []
   "General function call after updateing the store to trigger a re-render"
   (.then (.getItem (.-localforage js/window) "tasks") (fn [tasks]
                                                     (handle-state-change {:type "add-task" :value (js->clj tasks :keywordize-keys true)}))))
-
+(defn update-labels-in-store []
+  "touches the store to rerender after label updates"
+(.then (.getItem (.-localforage js/window) "labels") (fn [labels]
+                                                  (handle-state-change {:type "add-labels" :value (js->clj labels :keywordize-keys true)}))))
 ;TASKS API CONCERNS
 (defn get-tasks []
   "Gets all the current tasks"
@@ -57,6 +61,8 @@
 
 
 ;LABEL API CONCERNS
+; TODO probably best to split this out from the main tasks
+; and just refer it here to call
 (defn get-labels []
   "Gets all the current labels"
   (.then (.getItem (.-localforage js/window) "labels")
@@ -70,9 +76,17 @@
   (.then (get-labels)
     (fn [labels]
       (if (not labels)
-        (print labels))
-      ))
-)
+        (.then (.setItem (.-localforage js/window) "labels" (clj->js defaultLables/labels))))
+      (update-labels-in-store)))) ; update gets called either way moved it outside of `if`
 
-(defn update-label [labelId]
-  "Updates a given label")
+(defn update-labels [labels]
+  "simply overrides all the labels - takes in the new label state"
+  (.then (.setItem (.-localforage js/window) "labels" (clj->js labels))
+    (handle-state-change {:type "update-notification-state" :value {:message "Labels Updated!" :background "#2eb831" :display true}})
+    (update-labels-in-store)))
+
+
+
+
+
+

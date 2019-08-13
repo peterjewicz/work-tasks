@@ -13,6 +13,9 @@
   (defmethod handle-state-change "add-task"
     [action]
     (update-tasks-list app-state (:value action)))
+  (defmethod handle-state-change "add-labels"
+    [action]
+    (update-labels app-state (:value action)))
   (defmethod handle-state-change "update-labels"
     [action]
     (update-labels app-state (:value action)))
