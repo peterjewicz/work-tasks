@@ -1,6 +1,7 @@
 (ns work-tasks.scripts.api
   (:require [work-tasks.services.state.dispatcher :refer [handle-state-change]]
-            [work-tasks.scripts.apiHelpers :as apiHelpers]))
+            [work-tasks.scripts.apiHelpers :as apiHelpers]
+            [work-tasks.scripts.defaultLabels :refer [labels]]))
 
 ;GENERAL API FUNCTIONS
 (defn update-tasks-in-store []
@@ -56,5 +57,22 @@
 
 
 ;LABEL API CONCERNS
+(defn get-labels []
+  "Gets all the current labels"
+  (.then (.getItem (.-localforage js/window) "labels")
+    (fn [labels]
+      (js->clj labels :keywordize-keys true))))
+
+(defn setup-initial-labels []
+  "Is called on page load and setups our initial labels
+   If labels doesn't exist it will populate it with our default ones
+   Otherwise it will do nothing since we've already set our labels"
+  (.then (get-labels)
+    (fn [labels]
+      (if (not labels)
+        (print labels))
+      ))
+)
+
 (defn update-label [labelId]
   "Updates a given label")

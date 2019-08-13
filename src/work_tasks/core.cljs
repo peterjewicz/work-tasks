@@ -7,11 +7,13 @@
               [work-tasks.services.state.global :refer [app-state]]
               [work-tasks.scripts.api :as api]
               [work-tasks.scripts.notifications :as notification]
+              [work-tasks.scripts.taskHelpers :as taskHelpers]
               [work-tasks.services.state.dispatcher :refer [handle-state-change]]))
 
 (enable-console-print!)
 
 (api/update-tasks-in-store)
+(api/setup-initial-labels)
 
 (defn core []
   ; (print (:previous-page @app-state))
@@ -20,7 +22,7 @@
     [home/render (:home (:active-page @app-state)) (:tasks @app-state)]
     [task/render (:task (:active-page @app-state)) (:active-task @app-state)]
     [settings/render (:settings (:active-page @app-state))]
-    [calendar/render (:calendar (:active-page @app-state)) (:tasks @app-state)]])
+    [calendar/render (:calendar (:active-page @app-state)) (taskHelpers/filter-completed-tasks (:tasks @app-state))]])
 
 
 (reagent/render-component [core]

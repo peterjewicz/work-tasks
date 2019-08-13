@@ -3,17 +3,6 @@
             [work-tasks.scripts.taskHelpers :as taskHelpers]
             ["moment" :as moment]))
 
-; TODO DRY this up a bit also need to test on a month in the double digits to make sure it doesn't break
-; (defn open-day-view [date app-state]
-;   (if (and (not (= (first date) "0")) (= (second date) "/") )
-;     (do
-;       (swap! app-state conj {:activeDate (str "0" date)})
-;       (view_handler/change-view {:day "active"}))
-;     (do
-;       (swap! app-state conj {:activeDate date})
-;       (view_handler/change-view {:day "active"}))))
-
-
 (defn get-visible-dates [projects]
   "creates a list of discrete dates to highlit on the calendar"
       (let [returnDates (atom [])]
@@ -127,9 +116,10 @@
         [:div.Calendar-body
           [:div
             [:div.Calendar-Header
-              [:p.Calendar-arrow {:on-click #(swap! currentMonth (fn [current currentYear] (deincrement-month current currentYear monthDays)) currentYear monthDays)} "<"]
-              [:p.Calendar-Title (str (.format (moment @currentMonth "MM") "MMMM") " " @currentYear)]
-              [:p.Calendar-arrow {:on-click #(swap! currentMonth (fn [current currentYear] (increment-month current currentYear monthDays)) currentYear monthDays)} ">"]]
+              [:div.Calendar-Header.inner
+                [:p.Calendar-arrow {:on-click #(swap! currentMonth (fn [current currentYear] (deincrement-month current currentYear monthDays)) currentYear monthDays)} "<"]
+                [:p.Calendar-Title (str (.format (moment @currentMonth "MM") "MMMM") " " @currentYear)]
+                [:p.Calendar-arrow {:on-click #(swap! currentMonth (fn [current currentYear] (increment-month current currentYear monthDays)) currentYear monthDays)} ">"]]]
             [:table.Calendar-wrapper
               [:thead
                 [:tr

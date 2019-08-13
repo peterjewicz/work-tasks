@@ -104,6 +104,10 @@ Blue: #36a0cd */
   justify-content: space-between;
 }
 
+.Home .HomeTaskWrapper {
+  padding: 0 10px;
+}
+
 .addTaskButton {
   background: #36a0cd;
   position: fixed;
@@ -222,6 +226,10 @@ textarea {
   position: relative;
 }
 
+.Calendar-widget {
+  background: #3ebaef
+}
+
 .Calendar.calendar .dateItem.active-date:after {
   content: '';
   position: absolute;
@@ -236,6 +244,10 @@ textarea {
 .Calendar td {
   padding: 5px 0;
   text-align: center;
+  color: white;
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
 }
 
 .Calendar td.active {
@@ -252,15 +264,27 @@ textarea {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #36a0cd;
+  background: white;
 }
 
 .Calendar td.selected {
-  border: 1px solid #36a0cd;
+  border: 1px solid white;
   border-radius: 70%;
 }
 
+.Calendar th {
+  color: white;
+  padding-top: 10px;
+}
+
 .Calendar .Calendar-Header {
+  width: 100%;
+  background: #36a0cd;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.Calendar .Calendar-Header.inner {
   display: flex;
   width: 50%;
   margin: 0 auto;
@@ -272,4 +296,41 @@ textarea {
   width: 85%;
   margin: 0 auto;
   max-width: 320px;
+}
+
+.Calendar .todaysTask {
+  padding: 0 10px;;
+}
+
+
+/* LABEL STYLES */
+
+.Label {
+  display: flex;
+  margin: 25px 0;
+}
+
+.Label-left {
+  width: 75%;
+  display: flex;
+}
+
+.Label-left input {
+  width: calc(100% - 50px;)
+}
+
+.Label-right {
+  width: 25%;
+}
+
+.Label-right button {
+  width: 100%;
+  border-radius: 0;
+  height: 50px;
+  font-size: .75rem
+}
+
+.Label-color {
+  width: 50px;
+  height: 50px;
 }

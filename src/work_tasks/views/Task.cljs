@@ -18,6 +18,7 @@
   "Merges our date atom onto the main details before saving"
   (conj taskDetails {:due startTime}))
 
+
 ; NOTE
 ; If during render `:id` is set we know this is an existing task in edit mode
 (defn render [active activeTask]
@@ -28,6 +29,7 @@
       (if activeTask
         (do
           (swap! taskDetails conj {:title (:title activeTask) :details (:details activeTask) :id (:id activeTask)}); TODO there's probably a merge function that just does this
+          (reset! startTime (:due activeTask)) ; we need to set the date we pass to the datepicker too
           (reset! taskKeys [(inc (first @taskKeys)) (inc (second @taskKeys)) (inc (nth @taskKeys 2))]) ; TODO make this better
           (handle-state-change {:type "update-active-task" :value nil})
         ))
