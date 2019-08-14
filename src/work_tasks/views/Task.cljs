@@ -3,6 +3,7 @@
             [work-tasks.scripts.api :as api]
             [work-tasks.components.datepicker :as datepicker]
             [work-tasks.services.state.dispatcher :refer [handle-state-change]]
+            [work-tasks.components.LabelSelector :refer [LabelSelector]]
             ["moment" :as moment]))
 
 ; TODO update the dispaly on a succesful new save but not on edit!
@@ -18,11 +19,16 @@
   "Merges our date atom onto the main details before saving"
   (conj taskDetails {:due startTime}))
 
+(defn add-label-to-task [taskDetails id]
+  "adds and ID to the taskDetails Atom
+   we store atoms by ID so that the name can change
+   and we can reflect that since ID won't"
+  (swap! taskDetails update-in [:labels] merge id))
 
 ; NOTE
 ; If during render `:id` is set we know this is an existing task in edit mode
-(defn render [active activeTask]
-  (let [taskDetails (atom {:title "" :details "" :id false })
+(defn render [active activeTask labels]
+  (let [taskDetails (atom {:title "" :details "" :id false :labels []})
         taskKeys (atom [1, 2, 3])
         startTime (atom (.format (moment (js/Date. (.setHours (js/Date.) 0 0 0 0))) "MM/DD/YYYY"))] ; we use this to force re-render on the input
     (fn [active activeTask]
@@ -46,6 +52,9 @@
         [:div.inputWrapper
           [:h4 "Due Date"]
           [datepicker/datepicker startTime]]
+        [:div.inputWrapper
+          [:h4 "Labels"]
+            [LabelSelector labels (:labels @taskDetails) (partial add-label-to-task taskDetails)]]
         [:button.primary {:on-click #(api/save-task (merge-dates-on-save @taskDetails @startTime))} "Save"]
         (if (:id @taskDetails)
           [:div.completeButtonWrapper

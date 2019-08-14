@@ -20,7 +20,7 @@
   [:div.Main
     [notification/Notification (:notification @app-state)]
     [home/render (:home (:active-page @app-state)) (:tasks @app-state)]
-    [task/render (:task (:active-page @app-state)) (:active-task @app-state)]
+    [task/render (:task (:active-page @app-state)) (:active-task @app-state) (:labels @app-state)]
     [settings/render (:settings (:active-page @app-state)) (:labels @app-state)]
     [calendar/render (:calendar (:active-page @app-state)) (taskHelpers/filter-completed-tasks (:tasks @app-state))]])
 
