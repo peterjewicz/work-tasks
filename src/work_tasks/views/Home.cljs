@@ -18,7 +18,7 @@
   [:div.Page.Home {:class active}
     [:div.Home.header
       [:p {:on-click #(handle-state-change {:type "update-active-view" :value "settings"})} "settings"]
-      [:p {:on-click #(handle-state-change {:type "update-active-view" :value "calendar"})} "Calendar"]]
+      [:i.fas.fa-calendar-alt {:on-click #(handle-state-change {:type "update-active-view" :value "calendar"})}]]
     (let [notCompletedTasks (filter-completed-tasks tasks)]
       (if (> (count notCompletedTasks) 0)
         (generate-task-display notCompletedTasks)

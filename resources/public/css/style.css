@@ -349,3 +349,22 @@ textarea {
   color: white;
   border: none;
 }
+
+.LabelSelectorInputHolder {
+  position: relative;
+}
+
+.LabelSelectorInputHolderInner {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.removeLabelButton {
+  color: white;
+  border: none;
+  font-size: .75rem;
+  padding: 4px 12px;
+}
