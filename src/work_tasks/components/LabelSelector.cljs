@@ -36,7 +36,6 @@
 (defn LabelSelector [labels selectedLabels onSelectLabel]
   (let [showDropdown (atom false)]
     (fn [labels selectedLabels]
-      (print selectedLabels)
       [:div
         [:div.LabelSelectorInputHolder
           [:input {:type "text"

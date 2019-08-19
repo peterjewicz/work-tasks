@@ -237,6 +237,14 @@ textarea {
   position: relative;
 }
 
+.Calendar .Calendar-Header.inner i {
+  font-size: 2.5rem;
+}
+
+.Calendar .Calendar-Header.inner i:hover {
+  color: white;
+}
+
 .Calendar-widget {
   background: #3ebaef
 }
@@ -300,7 +308,7 @@ textarea {
   width: 50%;
   margin: 0 auto;
   justify-content: space-between;
-  max-width: 200px;
+  max-width: 240px;
 }
 
 .Calendar .Calendar-wrapper {
@@ -315,6 +323,10 @@ textarea {
 
 
 /* LABEL STYLES */
+
+.Settings h2 {
+  padding: 0 10px;
+}
 
 .Label {
   display: flex;
@@ -338,7 +350,8 @@ textarea {
   width: 100%;
   border-radius: 0;
   height: 50px;
-  font-size: .75rem
+  font-size: .75rem;
+  background: #3ebaef;
 }
 
 .Label-color {
@@ -378,4 +391,9 @@ textarea {
   border: none;
   font-size: .75rem;
   padding: 4px 12px;
+}
+
+
+.CompletedTask {
+  padding: 0px 15px;
 }

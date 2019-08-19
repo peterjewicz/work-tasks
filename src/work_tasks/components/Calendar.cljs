@@ -117,9 +117,9 @@
           [:div
             [:div.Calendar-Header
               [:div.Calendar-Header.inner
-                [:p.Calendar-arrow {:on-click #(swap! currentMonth (fn [current currentYear] (deincrement-month current currentYear monthDays)) currentYear monthDays)} "<"]
+                [:i.fas.fa-angle-left  {:on-click #(swap! currentMonth (fn [current currentYear] (deincrement-month current currentYear monthDays)) currentYear monthDays)}]
                 [:p.Calendar-Title (str (.format (moment @currentMonth "MM") "MMMM") " " @currentYear)]
-                [:p.Calendar-arrow {:on-click #(swap! currentMonth (fn [current currentYear] (increment-month current currentYear monthDays)) currentYear monthDays)} ">"]]]
+                [:i.fas.fa-angle-right  {:on-click #(swap! currentMonth (fn [current currentYear] (increment-month current currentYear monthDays)) currentYear monthDays)}]]]
             [:table.Calendar-wrapper
               [:thead
                 [:tr

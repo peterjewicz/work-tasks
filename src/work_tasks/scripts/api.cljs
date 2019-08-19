@@ -76,8 +76,9 @@
   (.then (get-labels)
     (fn [labels]
       (if (not labels)
-        (.then (.setItem (.-localforage js/window) "labels" (clj->js defaultLables/labels))))
-      (update-labels-in-store)))) ; update gets called either way moved it outside of `if`
+        (.then (.setItem (.-localforage js/window) "labels" (clj->js defaultLables/labels))
+          (fn [] (update-labels-in-store)))) ; has to be called here or else initial load will try to get before saved
+      (update-labels-in-store))))
 
 (defn update-labels [labels]
   "simply overrides all the labels - takes in the new label state"
