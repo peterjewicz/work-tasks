@@ -17,7 +17,7 @@
 (defn render [active tasks]
   [:div.Page.Home {:class active}
     [:div.Home.header
-      [:p {:on-click #(handle-state-change {:type "update-active-view" :value "settings"})} "settings"]
+      [:i.fas.fa-cog {:on-click #(handle-state-change {:type "update-active-view" :value "settings"})}]
       [:i.fas.fa-calendar-alt {:on-click #(handle-state-change {:type "update-active-view" :value "calendar"})}]]
     (let [notCompletedTasks (filter-completed-tasks tasks)]
       (if (> (count notCompletedTasks) 0)

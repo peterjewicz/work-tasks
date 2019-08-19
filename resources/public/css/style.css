@@ -75,6 +75,17 @@ button.warning:active{
   border: 1px solid #ea2c2c;
 }
 
+i {
+  color: #555;
+  font-size: 1.5rem;
+  transition: all .25s;
+  padding: 10px;
+}
+
+i:hover {
+  color: #36a0cd;
+}
+
 /* COLORS
 Blue: #36a0cd */
 

@@ -1,18 +1,14 @@
 (ns work-tasks.components.LabelSelector
   (:require [reagent.core :as reagent :refer [atom]]))
 
+(defn generate-placeholder [labels]
+  (if (> (count labels) 0 )
+    ""
+    "No Labels"))
+
 (defn toggle-label-dropdown [showDropdown value]
   "Show/hide label selector dropdown"
   (reset! showDropdown value))
-
-(defn generate-value [selectedLabels labels]
-  "generats our default value for the input dispaly"
-  (if (> (count selectedLabels) 0) ; if we have selectedLabels
-    (reduce (fn [acc label]
-              (str acc
-                   (:name (first (filter (fn [globalLabel]
-                      (= (:id globalLabel) label)) labels))) " ")) "" selectedLabels)
-    "No Label"))
 
 (defn is-label-added? [label labels]
   (if (> (count (filter (fn [selectedLabels]
@@ -40,11 +36,12 @@
 (defn LabelSelector [labels selectedLabels onSelectLabel]
   (let [showDropdown (atom false)]
     (fn [labels selectedLabels]
+      (print selectedLabels)
       [:div
         [:div.LabelSelectorInputHolder
           [:input {:type "text"
                    :readOnly true
-                   :placeholder "No Labels"}]
+                   :placeholder (generate-placeholder selectedLabels)}]
           [:div.LabelSelectorInputHolderInner {:on-click #(toggle-label-dropdown showDropdown true)}
             (generate-label-buttons selectedLabels labels onSelectLabel)]]
         [:div.labelDropdownContainer {:class @showDropdown}

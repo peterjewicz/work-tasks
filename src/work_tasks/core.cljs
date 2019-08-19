@@ -8,12 +8,21 @@
               [work-tasks.scripts.api :as api]
               [work-tasks.scripts.notifications :as notification]
               [work-tasks.scripts.taskHelpers :as taskHelpers]
-              [work-tasks.services.state.dispatcher :refer [handle-state-change]]))
+              [work-tasks.services.state.dispatcher :refer [handle-state-change]]
+              ["moment" :as moment]))
 
 (enable-console-print!)
 
 (api/update-tasks-in-store)
 (api/setup-initial-labels)
+
+(def dateTime (moment))
+(print (.format dateTime "MM/DD/YYY"))
+; 08/16/2019
+
+(.add dateTime 1 "days")
+(print (.format dateTime "MM/DD/YYY"))
+
 
 (defn core []
   ; (print (:previous-page @app-state))

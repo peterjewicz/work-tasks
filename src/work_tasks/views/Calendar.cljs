@@ -14,7 +14,7 @@
     (fn [active tasks]
       [:div..Page.Calendar {:class active}
         [:div.Calendar.header
-          [:p {:on-click #(handle-state-change {:type "update-active-view" :value "home"})}"Go Back"]]
+          [:i.fas.fa-arrow-left {:on-click #(handle-state-change {:type "update-active-view" :value "home"})}]]
         [:div.Calendar.content
           [Calendar/render tasks currentDate]
           [:div.Calendar.todaysTask

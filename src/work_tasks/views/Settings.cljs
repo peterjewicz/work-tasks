@@ -15,7 +15,7 @@
 (defn render [active labels]
   [:div.Page.Settings {:class active}
     [:div.Settings.Settings-Header
-      [:p {:on-click #(handle-state-change {:type "update-active-view" :value "home"})}"Go Back"]]
+      [:i.fas.fa-arrow-left {:on-click #(handle-state-change {:type "update-active-view" :value "home"})}]]
     [:h2 "My Labels"]
     (for [label labels]
       (Label label (partial handle-label-update labels)))])

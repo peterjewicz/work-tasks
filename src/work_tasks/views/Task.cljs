@@ -24,10 +24,6 @@
   "Merges our date atom onto the main details before saving"
   (conj taskDetails {:due startTime}))
 
-(defn greet
-     ([] (greet "you"))
-     ([name] (print "Hello" name)))
-
 (defn update-label-on-task
   "Updates an task with the label id
    multi arity pass id to add pass id and remove? to remove
@@ -58,7 +54,7 @@
         ))
       [:div.Task.Page {:class active}
         [:div.Task.header
-          [:p {:on-click #(leave-task-page taskDetails taskKeys)} "Go Back"]]
+          [:i.fas.fa-arrow-left {:on-click #(leave-task-page taskDetails taskKeys)}]]
       [:div.Task.body
         [:div.inputWrapper
           [:h4 "Task Name"]
