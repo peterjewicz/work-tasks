@@ -1,4 +1,4 @@
-(ns work-tasks.services.state.global
+(ns work-tasks.services.state.state
     (:require [reagent.core :as reagent :refer [atom]]))
 
 ; Some state items get overriden on update (like active page)

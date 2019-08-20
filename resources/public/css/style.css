@@ -239,10 +239,11 @@ textarea {
 
 .Calendar .Calendar-Header.inner i {
   font-size: 2.5rem;
+  color: white;
 }
 
 .Calendar .Calendar-Header.inner i:hover {
-  color: white;
+  color: #555;
 }
 
 .Calendar-widget {

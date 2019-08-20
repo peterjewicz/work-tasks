@@ -38,6 +38,11 @@
           true
           false)) (:labels @taskDetails))})))
 
+(defn handle-delete-task [taskDetails]
+  "Handle deleting a task and resetting the state for the task page"
+  (api/delete-task (:id @taskDetails))
+  (reset! taskDetails {:title "" :details "" :id false}))
+
 ; NOTE
 ; If during render `:id` is set we know this is an existing task in edit mode
 (defn render [active activeTask labels]
@@ -72,4 +77,4 @@
         (if (:id @taskDetails)
           [:div.completeButtonWrapper
             [:button.success {:on-click #(api/save-task  (conj (merge-dates-on-save @taskDetails @startTime) {:completed? true :completedOn (js/Date.)}))} "Complete"]
-            [:button.warning {:on-click #(api/delete-task (:id @taskDetails))} "Delete"]])]])))
+            [:button.warning {:on-click #(handle-delete-task taskDetails)} "Delete"]])]])))

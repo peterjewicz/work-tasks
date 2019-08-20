@@ -4,7 +4,7 @@
               [work-tasks.views.task :as task]
               [work-tasks.views.settings :as settings]
               [work-tasks.views.calendar :as calendar]
-              [work-tasks.services.state.global :refer [app-state]]
+              [work-tasks.services.state.state :refer [app-state]]
               [work-tasks.scripts.api :as api]
               [work-tasks.scripts.notifications :as notification]
               [work-tasks.scripts.taskHelpers :as taskHelpers]

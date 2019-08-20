@@ -1,5 +1,5 @@
 (ns work-tasks.services.state.dispatcher
-  (:require [work-tasks.services.state.global :refer [app-state update-active-view ]]
+  (:require [work-tasks.services.state.state :refer [app-state update-active-view ]]
             [work-tasks.services.state.labelState :refer [update-labels]]
             [work-tasks.services.state.taskState :refer [update-tasks-list update-active-task]]
             [work-tasks.services.state.notificationState :refer [update-notification-state]]))

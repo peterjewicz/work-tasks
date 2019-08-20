@@ -50,7 +50,7 @@
                            :main work-tasks.core
                            :npm-deps {:localforage "*" :moment "*"}
                            :install-deps true
-                           :optimizations :advanced
+                           :optimizations :whitespace
                            :pretty-print false}}]}
 
   :figwheel {;; :http-server-root "public" ;; default and assumes "resources"
