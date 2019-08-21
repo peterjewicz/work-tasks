@@ -123,7 +123,7 @@ Blue: #36a0cd */
   background: #36a0cd;
   position: fixed;
   right: 25px;
-  bottom: 25px;
+  bottom: 75px;
   width: 60px;
   height: 60px;
   color: white;
@@ -154,11 +154,23 @@ Blue: #36a0cd */
   margin: 0;
 }
 
+.Home .noTasksText {
+  text-align: center;
+  padding-top: 50px;
+}
+
+/* This takes care of adding padding to display our ads */
+.Home.add-padding .HomeTask:last-child {
+  margin-bottom: 100px;
+}
+
 
 /* TASK PAGE STYLES */
 
 .Task.Page {
   padding: 10px;
+  padding-bottom: 100px; /*  For adds */
+  box-sizing: border-box;
 }
 
 .completeButtonWrapper {
@@ -306,7 +318,7 @@ textarea {
 
 .Calendar .Calendar-Header.inner {
   display: flex;
-  width: 50%;
+  width: 75%;
   margin: 0 auto;
   justify-content: space-between;
   max-width: 240px;
@@ -322,11 +334,19 @@ textarea {
   padding: 0 10px;;
 }
 
+.Calendar.add-padding .HomeTask:last-child {
+  margin-bottom: 100px;
+}
+
 
 /* LABEL STYLES */
 
 .Settings h2 {
   padding: 0 10px;
+}
+
+.Settings.completedTasksWrapper {
+  padding-bottom: 100px;
 }
 
 .Label {

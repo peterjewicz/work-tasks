@@ -7,12 +7,16 @@
             [work-tasks.components.Calendar :as Calendar]
             ["moment" :as moment]))
 
+(defn generate-calendar-ad-padding [tasks]
+  (if (> (count tasks 4))
+    "add-padding"))
+
 (defn render [active tasks]
   (let [calendarDates (calendarHelpers/generate-calendar-display (moment))
         todaysTasks (taskHelpers/get-tasks-due-on-date (.format (moment) "MM/DD/YYYY") tasks)
         currentDate (atom (.format (moment) "MM/DD/YYYY"))]
     (fn [active tasks]
-      [:div..Page.Calendar {:class active}
+      [:div..Page.Calendar {:class (str active " " (generate-calendar-ad-padding tasks))}
         [:div.Calendar.header
           [:i.fas.fa-arrow-left {:on-click #(handle-state-change {:type "update-active-view" :value "home"})}]]
         [:div.Calendar.content

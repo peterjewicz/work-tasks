@@ -12,10 +12,14 @@
 
 (defn generate-no-tasks-display []
   "no tasks display"
-  [:h2 "You Don't Have Any Tasks. Try Adding Some!"])
+  [:h2.noTasksText "You Don't Have Any Tasks. Try Adding Some!"])
+
+(defn generate-home-ad-padding [tasks]
+  (if (> (count tasks 4))
+    "add-padding"))
 
 (defn render [active tasks]
-  [:div.Page.Home {:class active}
+  [:div.Page.Home {:class (str active " " (generate-home-ad-padding tasks))}
     [:div.Home.header
       [:i.fas.fa-cog {:on-click #(handle-state-change {:type "update-active-view" :value "settings"})}]
       [:i.fas.fa-calendar-alt {:on-click #(handle-state-change {:type "update-active-view" :value "calendar"})}]]

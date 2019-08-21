@@ -20,7 +20,8 @@
     [:h2 "My Labels"]
     (for [label labels]
       (Label label (partial handle-label-update labels)))
+    [:div.Settings.completedTasksWrapper
     [:h2 "Completed Tasks"]
-    (for [task completedTasks]
-      [:div.CompletedTask {:key (:id task)}
-        [:p (str (:title task) " - Completed On: " (.format (moment (:completedOn task)) "MM/DD/YYYY"))]])])
+      (for [task completedTasks]
+        [:div.CompletedTask {:key (:id task)}
+          [:p (str (:title task) " - Completed On: " (.format (moment (:completedOn task)) "MM/DD/YYYY"))]])]])
