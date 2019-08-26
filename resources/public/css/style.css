@@ -124,6 +124,10 @@ Blue: #36a0cd */
   display: flex;
 }
 
+.Task-right {
+  padding-right: 10px;
+}
+
 .TaskLabel {
   border-radius: 16px;
   color: white;
