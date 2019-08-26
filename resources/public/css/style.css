@@ -119,6 +119,20 @@ Blue: #36a0cd */
   padding: 0 10px;
 }
 
+.TasklabelHolder {
+  justify-content: flex-end;
+  display: flex;
+}
+
+.TaskLabel {
+  border-radius: 16px;
+  color: white;
+  border: none;
+  font-size: .75rem;
+  padding: 4px 12px;
+  text-align: center;
+}
+
 .addTaskButton {
   background: #36a0cd;
   position: fixed;
@@ -384,10 +398,19 @@ textarea {
   display: none;
   background: white;
   border: 1px solid #36a0cd;
+  position: relative;
 }
 
 .labelDropdownContainer.true {
   display: block;
+}
+
+.closeLabelDropDownContainer {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  margin: 0;
+  font-size: 1.5rem;
 }
 
 .labelDropdown.label button {

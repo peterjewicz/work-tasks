@@ -3,12 +3,12 @@
             [work-tasks.scripts.taskHelpers :refer [filter-completed-tasks]]
             [work-tasks.components.task :refer [Task]]))
 
-(defn generate-task-display [tasks]
+(defn generate-task-display [tasks labels]
   "Generates our html for displaying home page tasks"
   [:div.HomeTaskWrapper
     [:h1 "Your Tasks"]
     (for [task tasks]
-      (Task task))])
+      (Task task labels))])
 
 (defn generate-no-tasks-display []
   "no tasks display"
@@ -18,14 +18,14 @@
   (if (> (count tasks 4))
     "add-padding"))
 
-(defn render [active tasks]
+(defn render [active tasks labels]
   [:div.Page.Home {:class (str active " " (generate-home-ad-padding tasks))}
     [:div.Home.header
       [:i.fas.fa-cog {:on-click #(handle-state-change {:type "update-active-view" :value "settings"})}]
       [:i.fas.fa-calendar-alt {:on-click #(handle-state-change {:type "update-active-view" :value "calendar"})}]]
     (let [notCompletedTasks (filter-completed-tasks tasks)]
       (if (> (count notCompletedTasks) 0)
-        (generate-task-display notCompletedTasks)
+        (generate-task-display notCompletedTasks labels)
         (generate-no-tasks-display)))
     [:div.addTaskButton {:on-click #(handle-state-change {:type "update-active-view" :value "task"})}
       [:p "+"]]])

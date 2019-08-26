@@ -11,11 +11,11 @@
   (if (> (count tasks 4))
     "add-padding"))
 
-(defn render [active tasks]
+(defn render [active tasks labels]
   (let [calendarDates (calendarHelpers/generate-calendar-display (moment))
         todaysTasks (taskHelpers/get-tasks-due-on-date (.format (moment) "MM/DD/YYYY") tasks)
         currentDate (atom (.format (moment) "MM/DD/YYYY"))]
-    (fn [active tasks]
+    (fn [active tasks labels]
       [:div..Page.Calendar {:class (str active " " (generate-calendar-ad-padding tasks))}
         [:div.Calendar.header
           [:i.fas.fa-arrow-left {:on-click #(handle-state-change {:type "update-active-view" :value "home"})}]]
@@ -25,5 +25,5 @@
             [:h3 (str "Tasks For " @currentDate)]
               (if (> (count (taskHelpers/get-tasks-due-on-date @currentDate tasks)) 0)
                 (for [task (taskHelpers/get-tasks-due-on-date @currentDate tasks)]
-                  (Task task))
+                  (Task task labels))
                 [:p "No Tasks For Selected Date"])]]])))

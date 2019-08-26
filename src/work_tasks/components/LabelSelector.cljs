@@ -44,7 +44,7 @@
           [:div.LabelSelectorInputHolderInner {:on-click #(toggle-label-dropdown showDropdown true)}
             (generate-label-buttons selectedLabels labels onSelectLabel)]]
         [:div.labelDropdownContainer {:class @showDropdown}
-          [:p {:on-click #(toggle-label-dropdown showDropdown false)}"X"]
+          [:p.closeLabelDropDownContainer {:on-click #(toggle-label-dropdown showDropdown false)}"X"]
           (doall (for [label labels]
             (if (not (is-label-added? label selectedLabels))
             [:div.labelDropdown.label {:key (:id label)}
