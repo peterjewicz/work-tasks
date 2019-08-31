@@ -8,3 +8,5 @@ Work tasks is a simple task app with simple calendar integration. Use it to trac
 ## Feature Updates
 
 TODO
+
+Android - TBD
