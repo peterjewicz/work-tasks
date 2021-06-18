@@ -13,10 +13,10 @@
   "author": "Apache Cordova Team",
   "license": "Apache-2.0",
   "dependencies": {
+    "admob-plus-cordova": "1.17.0",
     "cordova-admobsdk": "^7.37.0",
     "cordova-ios": "^5.1.1",
-    "cordova-plugin-admobpro": "^2.37.2",
-    "cordova-plugin-extension": "^1.5.4",
+    "cordova-plugin-consent": "2.1.10",
     "cordova-sqlite-storage": "git+https://github.com/litehelpers/Cordova-sqlite-storage.git"
   },
   "devDependencies": {
@@ -25,8 +25,11 @@
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-admobpro": {},
-      "cordova-sqlite-storage": {}
+      "cordova-sqlite-storage": {},
+      "admob-plus-cordova": {
+        "APP_ID_IOS": "ca-app-pub-7918336603285970~2312634150"
+      },
+      "cordova-plugin-consent": {}
     },
     "platforms": [
       "ios"

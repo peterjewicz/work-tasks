@@ -17,8 +17,8 @@
     <script src="localforage.min.js"></script>
     <script src="js/compiled/work_tasks.js" type="text/javascript"></script>
     <script>
-      document.addEventListener("deviceready", onDeviceReady, false);
-      function onDeviceReady() {
+      document.addEventListener('deviceready', async () => {
+
         FastClick.attach(document.body);
 
         localforage.defineDriver(window.cordovaSQLiteDriver).then(function() {
@@ -36,29 +36,31 @@
             // this should alert "cordovaSQLiteDriver" when in an emulator or a device
           });
 
-        if ( /(android)/i.test(navigator.userAgent) ) {
-          admobid = { // for Android
-            // banner: '',
-            // interstitial: ''
-          };
-        } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
-            admobid = { // for iOS
-              banner: 'ca-app-pub-7918336603285970/7576321705'
-            };
+        let banner;
+        await admob.start();
+
+        if (cordova.platformId === 'ios') {
+          const trackingRequest = await admob.requestTrackingAuthorization();
+
+          if (trackingRequest == 2) {
+            // our user doesn't want to be tracked
+            banner = new admob.BannerAd({
+              adUnitId: 'ca-app-pub-2355398957672579/3561983014',
+              npa: '1',
+            })
           } else {
-              admobid = { // for Windows Phone
-                banner: '',
-                interstitial: ''
-              };
+            banner = new admob.BannerAd({
+              adUnitId: 'ca-app-pub-2355398957672579/3561983014',
+            })
           }
 
-          AdMob.createBanner({
-            adId: admobid.banner,
-            position: AdMob.AD_POSITION.BOTTOM_CENTER,
-            overlap: true,
-            autoShow : true
-          });
-      }
+          document.addEventListener('admob.banner.loadfail', async (event) => {
+            banner.hide()
+          })
+          await banner.show();
+        }
+
+      });
     </script>
   </body>
 </html>

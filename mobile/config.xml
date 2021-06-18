@@ -22,6 +22,8 @@
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+        <preference name="deployment-target" value="11.0" />
+        <preference name="SwiftVersion" value="5.3" />
     </platform>
     <icon density="mdpi" height="1024" platform="ios" src="res/icon/ios/icon.png" width="1024" />
     <icon density="mdpi" height="120" platform="ios" src="res/icon/ios/Icon-60@2x.png" width="120" />
