@@ -13,24 +13,29 @@
 
 (enable-console-print!)
 
-(api/update-tasks-in-store)
-(api/setup-initial-labels)
+(defn do-initial-load []
+  (api/update-tasks-in-store)
+  (api/setup-initial-labels))
 
 (defn core []
-  ; (print (:labels @app-state))
-  [:div.Main
-    [notification/Notification (:notification @app-state)]
-    [home/render (:home (:active-page @app-state)) (:tasks @app-state) (:labels @app-state)]
-    [task/render (:task (:active-page @app-state)) (:active-task @app-state) (:labels @app-state)]
-    [settings/render (:settings (:active-page @app-state)) (:labels @app-state) (taskHelpers/get-completed-tasks (:tasks @app-state))]
-    [calendar/render (:calendar (:active-page @app-state)) (taskHelpers/filter-completed-tasks (:tasks @app-state)) (:labels @app-state)]])
+  (let [is-loaded (atom false)]
+    (fn []
+      (if-not @is-loaded
+        (do-initial-load)
+        nil)
+      [:div.Main
+        [notification/Notification (:notification @app-state)]
+        [home/render (:home (:active-page @app-state)) (:tasks @app-state) (:labels @app-state)]
+        [task/render (:task (:active-page @app-state)) (:active-task @app-state) (:labels @app-state)]
+        [settings/render (:settings (:active-page @app-state)) (:labels @app-state) (taskHelpers/get-completed-tasks (:tasks @app-state))]
+        [calendar/render (:calendar (:active-page @app-state)) (taskHelpers/filter-completed-tasks (:tasks @app-state)) (:labels @app-state)]])))
 
 
 (reagent/render-component [core]
                           (. js/document (getElementById "app")))
 
-(defn on-js-reload []
+(defn on-js-reload [])
   ;; optionally touch your app-state to force rerendering depending on
   ;; your application
   ;; (swap! app-state update-in [:__figwheel_counter] inc)
-)
+
